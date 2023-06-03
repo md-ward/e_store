@@ -1,0 +1,142 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+
+.stagger > * {
+  opacity: 0;
+  animation: fade-in 0.5s ease-in-out forwards;
+}
+
+.stagger > *:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.stagger > *:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.stagger > *:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+.clipRectTopLeft {
+    width: 100%;
+    animation: clipRectTopLeftAnimation 300ms forwards ease-in-out;
+
+
+}
+
+
+.clipRectBottomRight {
+    width: 100%;
+    animation: clipRectBottomRightAnimation 300ms forwards ease-in-out;
+
+
+
+}
+
+
+
+
+
+
+
+@keyframes clipRectBottomRightAnimation {
+    0% {
+        clip-path: polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%);
+    }
+
+    100% {
+        clip-path: polygon(100% 0, 100% 100%, 0% 100%, 0 100%);
+    }
+}
+
+
+
+
+@keyframes clipRectTopLeftAnimation {
+    from {
+        clip-path: polygon(0 0, 0 0, 0% 0%, 0 0%);
+    }
+
+    to {
+        clip-path: polygon(0 0, 100% 0, 0% 100%, 0 100%);
+    }
+}
+
+
+
+
+@keyframes clipRectTopLeftReverseAnimation {
+    from {
+        clip-path: polygon(0 0, 100% 0, 0% 100%, 0 100%);
+    }
+
+    to {
+        clip-path: polygon(0 0, 0 0, 0% 0%, 0 0%);
+    }
+}
+
+@keyframes clipRectBottomRightReverseAnimation {
+    from {
+        clip-path: polygon(100% 0, 100% 100%, 0% 100%, 0 100%);
+    }
+
+    to {
+        clip-path: polygon(100% 100%, 100% 100%, 100% 100%, 100% 100%);
+    }
+}
+
+.clipRectTopLeftReverse {
+    width: 100%;
+    animation: clipRectTopLeftReverseAnimation 300ms forwards ease-in-out;
+}
+
+.clipRectBottomRightReverse {
+    width: 100%;
+    animation: clipRectBottomRightReverseAnimation 300ms forwards ease-in-out;
+}
+
+
+
+.jump-and-shake {
+    animation: jumpAndShake 0.9s ease-in-out forwards;
+    animation-iteration-count: infinite;
+
+}
+
+
+
+@keyframes jumpAndShake {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+
+
+
+
+
+}
