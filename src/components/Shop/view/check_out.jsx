@@ -43,8 +43,8 @@ const CheckoutPage = () => {
 
         {/* Shipping information */}
         <h2 className="text-lg font-medium mb-2">Shipping Information</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
+        <div className="grid  max-sm:grid-cols-1 grid-cols-2 gap-4">
+          <div > 
             <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
               Name
             </label>
@@ -132,7 +132,7 @@ const CheckoutPage = () => {
 
         {/* Payment information */}
         <h2 className="text-lg font-medium mb-2 mt-8">Payment Information</h2>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid max-sm:grid-cols-1 grid-cols-2  gap-4">
           <div>
             <label htmlFor="cardNumber" className="block text-gray-700 font-medium mb-2">
               Card Number
@@ -198,7 +198,7 @@ const CheckoutPage = () => {
         </div>
 
         {/* Submit button */}
-        <span className='flex justify-between'>
+        <span className='flex max-sm:flex-col gap-4 justify-between'>
           <button type="submit" className="bg-dark-blue hover:opacity-95 shadow-lg shadow-slate-300 text-white font-medium py-2 px-4 rounded-md">
             Place Order
           </button>
