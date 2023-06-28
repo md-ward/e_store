@@ -51,7 +51,7 @@ const Sidebar = () => {
           alt="img"
         />
         <div id="name_and_email">
-          <h4>Sara Colins</h4>
+          <h4>{localStorage.getItem("Name")}</h4>
           <h5 className="text-slate-400">{localStorage.getItem("Email")}</h5>
         </div>
       </div>

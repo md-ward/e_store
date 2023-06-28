@@ -1,19 +1,35 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import axios from 'axios';
 
 import ProductCard from '../widgets/product_card';
-import { categories, products } from '../model/ShopPageModel';
+import { categories } from '../model/ShopPageModel';
 
 const ShopPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(6);
-  const [selectedCategory, setSelectedCategory] = useState(null); // added state variable for selected category
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/products'); // replace with the actual API endpoint for fetching products
+       console.log(response.data)
+        setProducts(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
   const filteredProducts = useMemo(() => {
-    if (!selectedCategory) return products; // if no category is selected, return all products
-    return products.filter(product => product.category === selectedCategory); // otherwise, filter the products by selected category
+    if (!selectedCategory) return products;
+    return products.filter(product => product.category === selectedCategory);
   }, [products, selectedCategory]);
 
   const currentProducts = useMemo(() => {
@@ -39,8 +55,8 @@ const ShopPage = () => {
   };
 
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category === selectedCategory ? null : category); // deselect the category if it's already selected, otherwise select it
-    setCurrentPage(1); // reset the current page to 1 when a category is selected
+    setSelectedCategory(category === selectedCategory ? null : category);
+    setCurrentPage(1);
   };
 
   return (
@@ -52,7 +68,7 @@ const ShopPage = () => {
           {categories.map((category, index) => (
             <div
               key={index}
-              className={`bg-slate-200 hover:bg-slate-300 text-center rounded-xl p-1 ${selectedCategory === category.category ? 'bg-slate-300' : ''}`} // highlight the selected category
+              className={`bg-slate-200 hover:bg-slate-300 text-center rounded-xl p-1 ${selectedCategory === category.category ? 'bg-slate-300' : ''}`}
               onClick={() => handleCategorySelect(category.category)}
             >
               <div className="text-dark-blue cursor-pointer text-lg">{category.category}</div>
@@ -63,14 +79,12 @@ const ShopPage = () => {
 
 
       <div className="col-span-5 sm:col-span-4 p-4 gap-4 grid grid-cols-1 md:grid-cols-3 grid-rows-2 ">
-        {/* Products section */}
         {currentProducts.map((product, index) => (
           <ProductCard key={index} product={product} />
         ))}
       </div>
 
       <div className="md:col-start-2 sm:col-span-4 col-span-5 w-full place-self-center p-4 flex justify-center">
-        {/* Pagination section */}
         <ul className="flex gap-2">
           {pageNumbers.map((pageNumber) => (
             <li key={pageNumber}>

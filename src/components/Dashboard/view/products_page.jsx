@@ -40,23 +40,45 @@ function AddProductPage() {
     const handleCategoryChange = (event) => {
         setProductCategory(event.target.value);
     };
-
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Handle form submission here
-        showSnackBar('Product added Successfully ');
 
-
-        hideSnackBar(1500);
-        setTimeout(() => {
-
-            setProductName('');
-            setProductDescription('');
-            setProductPrice('');
-            setProductImage([]);
-            setProductCategory('');
-        }, 1650);
+        console.log(`images : ${productImage}`)
+        fetch('http://localhost:3000/products', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                product_name: productName,
+                description: productDescription,
+                price: productPrice,
+                product_type: productCategory,
+                images:productImage
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('New product added:', data);
+                showSnackBar('Product added Successfully ');
+                hideSnackBar(1500);
+                setTimeout(() => {
+                    setProductName('');
+                    setProductDescription('');
+                    setProductPrice('');
+                    setProductImage([]);
+                    setProductCategory('');
+                }, 1650);
+            })
+            .catch(error => {
+                console.error('Error adding product:', error);
+                showSnackBar('Error adding product. Please try again later.');
+                hideSnackBar(1500);
+            });
     };
+
+
+
     function handleImageClick() {
         document.getElementById('product-image').click();
     }
@@ -88,7 +110,7 @@ function AddProductPage() {
                         id="product-description"
                         name="product-description"
                         value={productDescription}
-                        
+
                         onChange={handleDescriptionChange}
                         className="px-4 py-2 rounded-lg shadow-lg resize-none"
                         required
@@ -146,7 +168,7 @@ function AddProductPage() {
 
             {showImageDialog && (
                 <div className=" fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                    <div className= " p-8 bg-white  rounded-lg shadow-lg flex flex-col ">
+                    <div className=" p-8 bg-white  rounded-lg shadow-lg flex flex-col ">
                         <label htmlFor="product-image" className="font-medium pb-10">
                             Choose an image from your gallery:
                         </label>
@@ -172,7 +194,7 @@ function AddProductPage() {
 
                             <button
                                 type="button"
-                                onClick={() => setShowImageDialog(false)}   
+                                onClick={() => setShowImageDialog(false)}
                                 className="px-4 py-2 rounded-lg shadow-lg bg-dark-blue text-white"
                             >
                                 Cancel

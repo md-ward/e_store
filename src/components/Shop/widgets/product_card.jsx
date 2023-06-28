@@ -32,7 +32,7 @@ const ProductCard = ({ product }) => {
   return (
     <>
       {/* Product Card */}
-      <div className="flex flex-col bg-white rounded-md shadow-dark-blue shadow-sm">
+      <div className="flex flex-col h-screen  bg-white rounded-md shadow-dark-blue shadow-sm">
         {/* top part image + icons... */}
         <div className="h-2/3 group relative">
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 absolute z-20 flex flex-col justify-center items-center w-full h-full gap-10">
@@ -44,7 +44,7 @@ const ProductCard = ({ product }) => {
             ))}
           </span>
           <img
-            className="relative group-hover:blur-sm h-full w-full object-cover rounded-lg hover:blur-sm"
+            className="relative group-hover:blur-sm h-96 w-full object-cover rounded-lg hover:blur-sm"
             src={product.image}
             alt="image"
           />

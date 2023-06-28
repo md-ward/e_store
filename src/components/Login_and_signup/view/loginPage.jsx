@@ -3,36 +3,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LogInForm from "../widgets/login_form";
 import SignUpForm from "../widgets/signUp_form";
+import Loader from "../../../loader";
 
 
 const LogInPage = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [TougglePassword, setTougglePassword] = useState(false);
+
     const [signUpLoginTouggle, setsignUpLoginTouggle] = useState(false);
 
     const navigate = useNavigate();
-    const handleEmailChange = (event) => {
-        setEmail(event.target.value);
 
-    };
 
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // handle login logic here
-
-        localStorage.setItem('Email', email);
-        navigate('/')
-
-    };
-
-    const handleTougglePassword = () => {
-        setTougglePassword(!TougglePassword)
-    }
     const handleSingUpandLoginTouggle = () => {
         handleSingUp()
         setTimeout(() => {
@@ -70,23 +50,13 @@ const LogInPage = () => {
 
             <div className={`  relative  p-8 rounded-lg shadow-lg drop-shadow-lg    duration-300 ease-in-out shadow-dark-blue   `}>
 
+
+
+
+
                 {signUpLoginTouggle ? <SignUpForm
-                    email={email}
-                    handleEmailChange={handleEmailChange}
-                    password={password}
-                    handlePasswordChange={handlePasswordChange}
-                    TougglePassword={TougglePassword}
-                    handleTougglePassword={handleTougglePassword}
-                    handleSubmit={handleSubmit}
-                /> : <LogInForm
-                    email={email}
-                    handleEmailChange={handleEmailChange}
-                    password={password}
-                    handlePasswordChange={handlePasswordChange}
-                    TougglePassword={TougglePassword}
-                    handleTougglePassword={handleTougglePassword}
-                    handleSubmit={handleSubmit}
-                />}
+
+                /> : <LogInForm />}
                 <div className="mt-6 text-center relative flex flex-col">
                     <p className="text-white">   {signUpLoginTouggle ? 'Already Signed up ?' : 'Don\'t have an account?'
                     }</p>
