@@ -1,5 +1,6 @@
 import React from "react";
 import { FaEye, FaShoppingCart, FaComments } from "react-icons/fa";
+import ViewContactusMessages from "../widgets/view_contactus_messages";
 
 const GeneralInfo = () => {
   const dailyVisits = 100; // replace with actual number of daily visits
@@ -7,6 +8,27 @@ const GeneralInfo = () => {
   const comments = 20; // replace with actual number of comments
   const monthlyVisits = 3000; // replace with actual number of monthly visits
 
+
+
+
+
+
+  return (
+
+
+<ViewContactusMessages></ViewContactusMessages>
+    
+
+    // <GeneralInfoMenue
+    //   dailyVisits={dailyVisits}
+    //   sales={sales}
+    //   comments={comments}
+    //   monthlyVisits={monthlyVisits}
+    // />
+  );
+};
+
+const GeneralInfoMenue = ({ dailyVisits, sales, comments, monthlyVisits }) => {
   return (
     <div className="h-full grid sm:grid-cols-2 gap-8 p-8">
       {/* Daily Visits */}
@@ -31,7 +53,7 @@ const GeneralInfo = () => {
       <div className="bg-white rounded-md shadow-md hover:bg-green-400 transition-all duration-500 ease-in-out hover:drop-shadow-lg p-4">
         <div className="flex items-center mb-4">
           <FaComments className="text-gray-700 text-3xl mr-2" />
-          <h2 className="text-gray-800 text-xl font-bold">Comments</h2>
+          <h2 className="text-gray-800 text-xl font-bold">ContactUs Messages</h2>
         </div>
         <p className="text-gray-700 text-lg font-medium">{comments}</p>
       </div>
