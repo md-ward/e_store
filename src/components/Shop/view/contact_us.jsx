@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import Snackbar from '../../Dashboard/widgets/snackBar';
 import { useSnackbar } from '../../Dashboard/store/showSnackBar';
+import axios from 'axios';
+import Loader from '../../../loader';
 
 const ContactUs = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const showSnackBar = useSnackbar(state => state.showSnackbar);
     const hideSnackBar = useSnackbar(state => state.hideSnackbar);
 
@@ -23,12 +25,31 @@ const ContactUs = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({ name, email, message }); // Do something with the form data
+        setIsSubmitting(true); // Set isSubmitting to true to show the loader
 
-        showSnackBar('Email subscribed successfully.');
-        hideSnackBar(1500);
+        const contactUsData = {
+            "user_name": name,
+            "email": email,
+            "message": message
+        }
+
+        try {
+          let res=  await axios.post('http://localhost:3000/contactUs/new_message', contactUsData);
+            showSnackBar('Email submitted successfully.');
+            hideSnackBar(1500);
+            setIsSubmitting(false); // Set isSubmitting to false to hide the loader
+            setName('');
+            setEmail('');
+            setMessage('');
+            
+        } catch (error) {
+            console.error(error);
+            setIsSubmitting(false); // Set isSubmitting to false to hide the loader
+            showSnackBar('Error submitting email. Please try again later.');
+            hideSnackBar(1500);
+        }
     };
 
     return (
@@ -75,23 +96,20 @@ const ContactUs = () => {
                             required
                         ></textarea>
                     </div>
+                    <div className='flex justify-center'>
+                        {isSubmitting && <Loader />} {/* Show the loader if isSubmitting is true */}
+                    </div>
                     <button
-
-
                         type="submit"
+                        disabled={isSubmitting}
                         className="bg-dark-blue group text-white rounded-lg px-4 py-2 hover:bg-dark-blue hover:opacity-95 flex items-center justify-center"
                     >
-
-                        <span >Submit</span>
+                        <span>{isSubmitting ? 'Submitting...' : 'Submit'}</span> {/* Change the button text to 'Submitting...' if isSubmitting is true */}
                         <FontAwesomeIcon icon={faPaperPlane} className="ml-2 jump-and-shake group-hover:animate-none max-sm:animate-none" />
-
                     </button>
                     <Snackbar key={'contact'}></Snackbar>
                 </form>
             </div>
-
-
-
         </div>
     );
 };

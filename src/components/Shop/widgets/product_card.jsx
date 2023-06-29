@@ -32,9 +32,9 @@ const ProductCard = ({ product }) => {
   return (
     <>
       {/* Product Card */}
-      <div className="flex flex-col h-screen  bg-white rounded-md shadow-dark-blue shadow-sm">
+      <div className="flex flex-col   bg-white rounded-md shadow-dark-blue shadow-sm">
         {/* top part image + icons... */}
-        <div className="h-2/3 group relative">
+        <div className=" group relative  bg-slate-200">
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 absolute z-20 flex flex-col justify-center items-center w-full h-full gap-10">
             {buttons.map((button) => (
               <button key={button.id} className='text-white' onClick={button.id === 'view' ? openModal : null}>
@@ -44,19 +44,19 @@ const ProductCard = ({ product }) => {
             ))}
           </span>
           <img
-            className="relative group-hover:blur-sm h-96 w-full object-cover rounded-lg hover:blur-sm"
-            src={product.image}
-            alt="image"
+            className="relative group-hover:blur-sm h-96 w-full  rounded-lg hover:blur-sm text-center "
+            src={product.images[0]}
+            alt={product.product_name}
           />
         </div>
 
         {/* description... */}
         <div className="flex flex-col p-4">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-xl font-light text-dark-blue font-serif">{product.title}</h3>
+            <h3 className="text-xl font-light text-dark-blue font-serif">{product.product_name}</h3>
             <div className="flex items-center">
               <FontAwesomeIcon icon={faStar} color="gold" />
-              <p className="ml-1 text-sm font-medium text-gray-700">{product.rating}</p>
+              <p className="ml-1 text-sm font-medium text-gray-700">{product.rate}</p>
             </div>
           </div>
           {/* <p className="text-sm text-dark-blue mb-4">{product.description}</p> */}
@@ -93,7 +93,7 @@ const ProductCard = ({ product }) => {
 
             <Transition.Child
               as={React.Fragment}
-             enter="ease-out duration-300"
+              enter="ease-out duration-300"
               enterFrom="opacity-0 translate-y-4"
               enterTo="opacity-100 translate-y-0"
               leave="ease-in duration-200"
@@ -110,12 +110,12 @@ const ProductCard = ({ product }) => {
                 <div className="mt-2">
                   <img
                     className="h-80 w-full object-cover rounded-md"
-                    src={product.image}
+                    src={product.images[0]}
                     alt={product.title}
                   />
                 </div>
                 <div className="mt-4 p-1">
-                  <p className="text-base  h-56  overflow-y-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in risus nec quam hendrerit vestibulum. Ut auctor libero quis dapibus gravida. Nunc vel quam eu leo suscipit elementum sit amet a ex. Nam aliquet nibh enim, vitae auctor nibh varius sed. Maecenas ac nisl vel mi bibendum ullamcorper. Donec sed quam eget velit egestas vestibulum. Sed auctor, ipsum vel bibendum imperdiet, nulla tellus pulvinar turpis, id venenatis velit lectus et dolor. Integer ac magna libero. Suspendisse potenti. Nunc vehicula cursus quam vel porta. Nam euismod mauris ac nulla vehicula, sed bibendum diam rutrum. Sed pharetra, lorem sit amet dictum sodales, nulla lorem congue nunc, vel iaculis nulla tellus vel enim. Donec suscipit, enim a interdum ornare, ipsum nulla fringilla sapien, in faucibus nulla libero quis massa.</p>
+                  <p>{product.description}</p>
                   <p className="mt-2 text-lg font-bold text-dark-blue">{product.price} $</p>
                 </div>
 

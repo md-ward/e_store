@@ -13,8 +13,8 @@ const ShopPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/products'); // replace with the actual API endpoint for fetching products
-       console.log(response.data)
+        const response = await axios.get('http://localhost:3000/products/get'); // replace with the actual API endpoint for fetching products
+        console.log(response.data)
         setProducts(response.data);
       } catch (error) {
         console.error(error);
@@ -60,7 +60,7 @@ const ShopPage = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-5 gap-4 w-full ">
+    <div className=" grid grid-cols-1 md:grid-cols-5 gap-4 w-full ">
 
       <div className='col-span-5 md:col-span-1 col-start-1 row-span-2 p-5 rounded-md shadow-gray-400 drop-shadow-md shadow-sm'>
         <h1 className="text-xl font-light text-dark-blue mb-4 font-serif">Categories</h1>

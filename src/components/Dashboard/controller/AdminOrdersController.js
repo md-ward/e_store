@@ -1,17 +1,44 @@
-import { useState } from 'react';
-import { getOrders, fulfillOrder, removeFulfilledOrders } from '../model/orders';
+import { data } from 'autoprefixer';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 function useAdminOrdersController() {
+
   const [sortBy, setSortBy] = useState(null);
-  const [orders, setOrders] = useState(getOrders());
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/order/get').then((data) => {
+      setOrders(data.data);
+
+
+    }
+    ).catch(() => {
+      setOrders([])
+
+    });
+
+
+
+  }, [])
+
+
+
+
+
 
   const handleSortByDate = () => {
     setSortBy('date');
   };
 
+
   const handleSortByPrice = () => {
     setSortBy('price');
   };
+
+
+
+
 
   const handleFulfillOrder = async (orderId) => {
     const orderFulfilled = fulfillOrder(orderId);

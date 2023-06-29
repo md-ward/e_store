@@ -139,12 +139,12 @@ const SignUpForm = () => {
                     <Loader />
                 </div>
             )}
-            <button
+            {!submitting && <button
                 type="submit"
                 className="w-full bg-dark-blue text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-300"
             >
                 Submit
-            </button>
+            </button>}
         </form>
     );
 };

@@ -29,6 +29,7 @@ function AddProductPage() {
         if (productImage.length <= 4) {
             const newImageUrls = newImages.splice(0, 4).map((image) =>
                 URL.createObjectURL(image)
+                
             );
             setProductImage([...productImage, ...newImageUrls]);
             setShowImageDialog(false)
@@ -44,7 +45,7 @@ function AddProductPage() {
         event.preventDefault();
 
         console.log(`images : ${productImage}`)
-        fetch('http://localhost:3000/products', {
+        fetch('http://localhost:3000/products/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
