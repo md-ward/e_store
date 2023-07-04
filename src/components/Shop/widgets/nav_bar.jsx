@@ -2,6 +2,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faUser, faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useRef, useEffect } from "react";
 import { NavLink, Link, useResolvedPath } from "react-router-dom";
+import useCartStore from "../store/addToCartStore";
+
+
 
 const NavItems = [
   { link: "/", title: "Home" },
@@ -51,6 +54,8 @@ const NavMenu = ({ openMenu, closeMenu }) => {
 const NavIcons = () => {
   const [openSearch, setOpenSearch] = useState(false);
   const searchRef = useRef(null);
+  const { itemsCount } = useCartStore();
+  
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -79,7 +84,15 @@ const NavIcons = () => {
       <div className="flex gap-2">
         {IconButtons.map(({ icon, title, link }) => (
           <Link key={title} className="mx-2 relative" title={title} to={link}>
-            <FontAwesomeIcon icon={icon} />
+            {title == 'Cart' ?
+              <span className="relative">
+                <FontAwesomeIcon icon={icon} />
+                <span className="bg-red-500 rounded-full w-5 h-5 flex justify-center text-white items-center absolute  -top-2 left-4"> { itemsCount}</span>
+              </span>
+
+              : <FontAwesomeIcon icon={icon} />
+
+            }
 
           </Link>
 
@@ -107,7 +120,7 @@ const NavBar = () => {
 
   return (
     <nav className="   shadow-lg flex flex-col-reverse pt-6 gap-7 md:grid grid-cols-3 grid-rows-1 md:h-24 bg-slate-50">
-      <div className="hidden lg:flex justify-center items-center">
+      <div className="hidden lg:flex justify-center items-center ">
         <img src={'assets/site icon.png'} className="object-fill h-full scale-150" alt="logo" />
       </div>
 

@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faHeart, faStar, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Dialog, Transition } from '@headlessui/react';
+import useCartStore from '../store/addToCartStore';
 
 const ProductCard = ({ product }) => {
   const [hoverIcons, setHoverIcons] = useState({});
   const [isOpen, setIsOpen] = useState(false);
+  const { addToCart } = useCartStore();
+
 
   const buttons = [
     { id: 'view', icon: faEye, text: 'View' },
@@ -29,6 +32,10 @@ const ProductCard = ({ product }) => {
     setIsOpen(false);
   };
 
+
+
+
+
   return (
     <>
       {/* Product Card */}
@@ -37,9 +44,9 @@ const ProductCard = ({ product }) => {
         <div className=" group relative  bg-slate-200">
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 absolute z-20 flex flex-col justify-center items-center w-full h-full gap-10">
             {buttons.map((button) => (
-              <button key={button.id} className='text-white' onClick={button.id === 'view' ? openModal : null}>
+              <button key={button.id} className='text-dark-blue' onClick={button.id === 'view' ? openModal : null}>
                 <FontAwesomeIcon icon={button.icon} onMouseEnter={() => handleMouseEnter(button.id)} onMouseLeave={() => handleMouseLeave(button.id)} />
-                <span className={`ml-2 absolute text-white transition-all duration-500 ease-out  ${hoverIcons[button.id] ? 'opacity-100 ' : 'opacity-0'}`} style={{ visibility: hoverIcons[button.id] ? 'visible' : 'hidden' }}>{button.text}</span>
+                <span className={`ml-2 absolute text-dark-blue transition-all duration-500 ease-out  ${hoverIcons[button.id] ? 'opacity-100 ' : 'opacity-0'}`} style={{ visibility: hoverIcons[button.id] ? 'visible' : 'hidden' }}>{button.text}</span>
               </button>
             ))}
           </span>
@@ -125,6 +132,7 @@ const ProductCard = ({ product }) => {
                     className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                     onClick={() => {
                       // Add to cart logic here
+                      addToCart(product)
                       closeModal();
                     }}
                   >

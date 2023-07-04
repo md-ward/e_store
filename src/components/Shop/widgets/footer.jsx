@@ -71,7 +71,7 @@ const Footer = () => {
             </div>
 
             {/* middle side */}
-            <div className="grid sm:grid-rows-4 grid-cols-1 p-4 gap-2">
+            <div className="grid sm:grid-rows-4 grid-cols-1 p-4 gap-2 ">
                 <h1 className="place-self-center justify-self-start font-sans text-white uppercase pl-1 pt-4 text-lg">Our Products</h1>
                 <span className="w-1/2bg-gray-600 h-0.5"></span>
 
@@ -79,7 +79,7 @@ const Footer = () => {
                     {products.map((product) => (
                         <span className="group w-36" key={product.name}>
                             <span className="hidden sm:block absolute w-0 group-hover:w-36 h-6 rounded-lg transition-all duration-700 bg-cyan-400 cursor-pointer"></span>
-                            <p className="sm:absolute z-10 bg-transparent bg-clip-content cursor-pointer">{product.name}</p>
+                            <p className="sm:absolute z-10 bg-transparent bg-clip-content cursor-pointer hover:mx-2 transition-all duration-700 ease-in-out">{product.name}</p>
                         </span>
                     ))}
                 </span>

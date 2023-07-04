@@ -11,6 +11,7 @@ import CartPage from './components/Shop/view/CartPage';
 import ContactUs from './components/Shop/view/contact_us';
 import AboutUs from './components/Shop/view/about_us';
 import CheckoutPage from './components/Shop/view/check_out'
+import OurLocations from './components/Shop/view/our_locations';
 
 const AppRouter = () => {
   return (
@@ -22,7 +23,7 @@ const AppRouter = () => {
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/contacts" element={<ContactUs />} />
-
+        <Route path='/locations' element={<OurLocations />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/checkOut" element={< CheckoutPage />} />
 

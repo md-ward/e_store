@@ -16,7 +16,6 @@ const ShopPage = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:3000/products/get'); // replace with the actual API endpoint for fetching products
-        console.log(response.data)
         setProducts(response.data);
         setLoading(false);
       } catch (error) {

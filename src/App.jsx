@@ -28,8 +28,10 @@ function App() {
           </>
         )}
 
+       
         <AppRouter />
 
+      
         {location.pathname !== '/admin' && location.pathname !== '/register' && (
           <>
             <Footer></Footer>

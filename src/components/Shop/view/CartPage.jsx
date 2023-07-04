@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useLayoutEffect} from 'react';
-import { products } from '../model/ShopPageModel';
+import React, { useState, useMemo, useLayoutEffect } from 'react';
+// import { products } from '../model/ShopPageModel';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -12,10 +12,13 @@ const CartPage = () => {
 
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+  let products = sessionStorage.getItem('cartItems')
+  products = JSON.parse(products)??[]
 
   const currentProducts = useMemo(() => {
     return products.slice(indexOfFirstProduct, indexOfLastProduct).map(product => ({
@@ -58,10 +61,10 @@ const CartPage = () => {
   }, [currentProducts, productCounter]);
 
 
- function  handleCheckout(){
+  function handleCheckout() {
 
 
-navigate('/checkOut',{replace:true})
+    navigate('/checkOut', { replace: true })
 
 
   }
@@ -77,12 +80,12 @@ navigate('/checkOut',{replace:true})
             <div className="bg-dark-blue  w-full mt-2 h-px"></div>
             <h1 className=" text-xl font-semibold text-slate-700"> Items: {Object.values(productCounter).reduce((acc, curr) => acc + curr, 0)} </h1>
           </div>
-          
+
           <h2 className="text-xl font-medium">Total Price: {totalPrice} $</h2>
-          <button 
-          
-          onClick={handleCheckout}
-          className="w-full bg-dark-blue text-white rounded-md hover:opacity-95 mt-8 font-medium py-2">
+          <button
+
+            onClick={handleCheckout}
+            className="w-full bg-dark-blue text-white rounded-md hover:opacity-95 mt-8 font-medium py-2">
             Check Out
           </button>
         </div>
@@ -90,12 +93,12 @@ navigate('/checkOut',{replace:true})
         <div className="col-span-6 lg:col-span-5 p-4 bg-gray-200 rounded-md">
           {/* Products section */}
           {currentProducts.map((product) => (
-            <div key={product.id} className="grid md:grid-cols-5 grid-cols-1  items-center gap-4 border-b-2 pb-2 border-gray-300">
+            <div key={product._id} className="grid md:grid-cols-5 grid-cols-1  items-center gap-4 border-b-2 pb-2 border-gray-300">
               {/* product image  */}
               <img src={product.image} alt="" className="rounded-md object-contain max-sm:mx-auto h-24" />
 
               {/* product title / name  */}
-              <h1 className="text-lg text-center  font-medium">{product.title}</h1>
+              <h1 className="text-lg text-center  font-medium">{product.product_name}</h1>
 
               {/* counter button  */}
               <div className="flex items-center justify-center space-x-2">
