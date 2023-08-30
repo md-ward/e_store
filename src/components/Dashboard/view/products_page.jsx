@@ -1,50 +1,87 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ImageCarousel from '../widgets/imageCarousel';
 import Snackbar from '../widgets/snackBar';
 import { useSnackbar } from '../store/showSnackBar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAdd, faBox } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 function AddProductPage() {
+
     const [productName, setProductName] = useState('');
     const [productDescription, setProductDescription] = useState('');
     const [productPrice, setProductPrice] = useState('');
     const [productImage, setProductImage] = useState([]);
     const [productCategory, setProductCategory] = useState('');
     const [showImageDialog, setShowImageDialog] = useState(false);
+    const [newCategory, setnewCategory] = useState(true);
+
+    // !global widget..........
     const showSnackBar = useSnackbar(state => state.showSnackbar);
     const hideSnackBar = useSnackbar(state => state.hideSnackbar);
 
-    const handleNameChange = (event) => {
-        setProductName(event.target.value);
-    };
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('');
 
-    const handleDescriptionChange = (event) => {
-        setProductDescription(event.target.value);
-    };
+    useEffect(() => {
+        // Fetch categories from API
+        fetchCategories();
+    }, []);
 
-    const handlePriceChange = (event) => {
-        setProductPrice(event.target.value);
-    };
-    const handleImageChange = (event) => {
-        const newImages = Array.from(event.target.files);
-        if (productImage.length <= 4) {
-            const newImageUrls = newImages.splice(0, 4).map((image) =>
-                URL.createObjectURL(image)
-                
-            );
-            setProductImage([...productImage, ...newImageUrls]);
-            setShowImageDialog(false)
-        } else {
-            setShowImageDialog(true);
+    const fetchCategories = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/category/all_categories');
+            const data = await response.json();
+            console.warn(data.allCategories)
+
+            setCategories(data.allCategories);
+
+        } catch (error) {
+            console.error('Error fetching categories:', error);
         }
     };
 
-    const handleCategoryChange = (event) => {
-        setProductCategory(event.target.value);
-    };
-    const handleSubmit = (event) => {
+
+    // ? functions 
+
+    function handleNameChange(event) {
+        setProductName(event.target.value);
+    }
+
+    function handleDescriptionChange(event) {
+        setProductDescription(event.target.value);
+    }
+
+    function handlePriceChange(event) {
+        setProductPrice(event.target.value);
+    }
+    function handleImageChange(event) {
+        const newImages = Array.from(event.target.files);
+        if (productImage.length <= 4) {
+            const newImageUrls = newImages.splice(0, 4).map((image) => URL.createObjectURL(image)
+
+            );
+            setProductImage([...productImage, ...newImageUrls]);
+            setShowImageDialog(false);
+        } else {
+            setShowImageDialog(true);
+        }
+    }
+    function handleCategoryChange(event) {
+        const selectedValue = event.target.value;
+        setProductCategory(selectedValue);
+        setSelectedCategory(selectedValue);
+
+        if (selectedValue === 'new') {
+            setnewCategory(false);
+            setProductCategory('');
+        }
+    }
+
+    function handleSubmit(event) {
         event.preventDefault();
 
-        console.log(`images : ${productImage}`)
+        console.log(`images : ${productImage}`);
         fetch('http://localhost:3000/products/add', {
             method: 'POST',
             headers: {
@@ -54,8 +91,8 @@ function AddProductPage() {
                 product_name: productName,
                 description: productDescription,
                 price: productPrice,
-                product_type: productCategory,
-                images:productImage
+                product_type: selectedCategory,
+                images: productImage
             })
         })
             .then(response => response.json())
@@ -76,12 +113,34 @@ function AddProductPage() {
                 showSnackBar('Error adding product. Please try again later.');
                 hideSnackBar(1500);
             });
-    };
+    }
 
 
 
     function handleImageClick() {
         document.getElementById('product-image').click();
+    }
+
+    async function handleAddingNewCategory() {
+        if (productCategory.trim() === '') {
+            // If the product category is empty, show an error message
+            alert('Please enter a category name');
+            return;
+        }
+
+        try {
+            await axios.post('http://localhost:3000/category/new_category', {
+                product_category: productCategory.trim()
+            }).then(() => [
+                fetchCategories()
+
+            ]);
+
+            setnewCategory(true);
+        } catch (error) {
+            console.error('Error adding new category:', error);
+            alert('Error adding new category. Please try again later.');
+        }
     }
 
 
@@ -131,23 +190,40 @@ function AddProductPage() {
                         required
                     />
 
+
+                    {/* products category */}
                     <label htmlFor="product-category" className="font-medium">
                         Product Category
                     </label>
-                    <select
-                        id="product-category"
-                        name="product-category"
-                        value={productCategory}
-                        onChange={handleCategoryChange}
-                        className="px-4 py-2 rounded-lg shadow-lg"
-                        required
-                    >
-                        <option value="">Please select a category</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="clothing">Clothing</option>
-                        <option value="home-goods">Home Goods</option>
-                        <option value="health-beauty">Health &amp; Beauty</option>
+                    {newCategory ? <select id="category" value={selectedCategory} onChange={handleCategoryChange}>
+                        <option value="">Select a category</option>
+                        {categories.map((category) => (
+                            <option key={category._id} value={category._id}>
+                                {category.product_Category}
+                            </option>
+                        ))}
+                        <option value="new">new category </option>
+
                     </select>
+                        : <span className='w-full flex flex-row  '>
+                            <input
+                                className="px-4 py-2 rounded-lg shadow-lg w-3/4"
+
+                                placeholder='add new category'
+                                value={productCategory}
+                                onChange={handleCategoryChange}
+
+                            />
+
+                            <span
+                                onClick={handleAddingNewCategory}
+                                className='bg-slate-100 w-10 h-10 flex justify-center shadow-2xl  items-center   ring-1  mx-9  cursor-pointer hover:shadow-inner rounded-full    '>
+                                <FontAwesomeIcon className='  text-blue-600 ' icon={faAdd} size='lg' />
+                            </span>
+                        </span>
+                    }
+
+
 
                     <button
                         type="button"

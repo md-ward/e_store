@@ -44,7 +44,7 @@ const ProductCard = ({ product }) => {
         <div className=" group relative  bg-slate-200">
           <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 absolute z-20 flex flex-col justify-center items-center w-full h-full gap-10">
             {buttons.map((button) => (
-              <button key={button.id} className='text-dark-blue' onClick={button.id === 'view' ? openModal : null}>
+              <button key={button.id} className='text-dark-blue' onClick={button.id === 'view' ? openModal : null} >
                 <FontAwesomeIcon icon={button.icon} onMouseEnter={() => handleMouseEnter(button.id)} onMouseLeave={() => handleMouseLeave(button.id)} />
                 <span className={`ml-2 absolute text-dark-blue transition-all duration-500 ease-out  ${hoverIcons[button.id] ? 'opacity-100 ' : 'opacity-0'}`} style={{ visibility: hoverIcons[button.id] ? 'visible' : 'hidden' }}>{button.text}</span>
               </button>

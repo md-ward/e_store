@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LogInForm from "../widgets/login_form";
 import SignUpForm from "../widgets/signUp_form";
-import Loader from "../../../loader";
+
 
 
 const LogInPage = () => {
@@ -44,6 +44,7 @@ const LogInPage = () => {
 
 
     }
+
 
     return (
         <div className="w-full h-screen flex flex-col justify-center items-center text-white bg-gray-100 from-dark-blue-2 to-indigo-500 bg-gradient-to-br " >
