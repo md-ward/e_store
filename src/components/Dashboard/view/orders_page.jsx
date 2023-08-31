@@ -15,7 +15,7 @@ function AdminOrdersPage() {
         return date.toLocaleDateString('en-GB') + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
     };
 
-    // Buttons for sorting orders
+    //! Buttons for sorting orders
     const SortingButtons = (
         <div className="flex flex-row justify-center mb-4 sm:mb-0">
             <button

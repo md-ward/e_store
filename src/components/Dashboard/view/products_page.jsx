@@ -201,7 +201,9 @@ function AddProductPage() {
                             <option key={category._id} value={category._id}>
                                 {category.product_Category}
                             </option>
-                        ))}
+                        ))
+                        
+                        }
                         <option value="new">new category </option>
 
                     </select>

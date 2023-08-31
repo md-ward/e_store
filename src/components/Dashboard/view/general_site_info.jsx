@@ -13,15 +13,15 @@ const GeneralInfo = () => {
   const sales = 50; // replace with actual number of sales
   const monthlyVisits = 3000; // replace with actual number of monthly visits
 
-    axios.get('http://localhost:3000/contactUs/count')
-      .then((response) => {
-        setmessagesCount(response.data.count);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  axios.get('http://localhost:3000/contactUs/count')
+    .then((response) => {
+      setmessagesCount(response.data.count);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
-  
+
 
 
 

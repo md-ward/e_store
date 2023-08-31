@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faHeart, faStar, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faHeart, faStar, faShoppingCart, faHashtag } from '@fortawesome/free-solid-svg-icons';
 import { Dialog, Transition } from '@headlessui/react';
 import useCartStore from '../store/addToCartStore';
 
@@ -34,7 +34,7 @@ const ProductCard = ({ product }) => {
 
 
 
-
+  // ! Note : we need to change the way of viewing and handleing categories //
 
   return (
     <>
@@ -69,6 +69,13 @@ const ProductCard = ({ product }) => {
           {/* <p className="text-sm text-dark-blue mb-4">{product.description}</p> */}
           <p className="text-lg font-bold text-dark-blue">{product.price} $</p>
         </div>
+        <span className='w-full flex justify-around items-center'>
+
+          <FontAwesomeIcon icon={faHashtag} />
+          {product.product_type}
+
+
+        </span>
       </div>
 
       {/* Modal */}

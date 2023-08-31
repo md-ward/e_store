@@ -1,8 +1,9 @@
 import { faChartColumn, faInfo, faListDots, faShop } from '@fortawesome/free-solid-svg-icons';
-import { useChangePage } from '../store/storeState';
+import { useChangePage } from '../store/useChangePage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Sidebar = () => {
+  // ! sidebar items.........
   const menuItems = [
     { icon: faInfo, label: "General info", link: "/admin/generalInfo" },
     { icon: faShop, label: "Orders", link: "/admin/orders" },
@@ -10,6 +11,7 @@ const Sidebar = () => {
     { icon: faListDots, label: "Products", link: "/admin/products" },
   ];
 
+  // ? manage changing pages using useChangePage hook.....
   const changeToNewPage = useChangePage((state) => state.changeToNewPage);
   const currentPage = useChangePage((state) => state.currentPage);
 
@@ -22,10 +24,12 @@ const Sidebar = () => {
 
   return (
     <div className="md:col-span-1 h-full w-full flex flex-col p-10 text-white md:justify-between items-start">
+      {/* Site Logo... */}
       <div id="logo" className="mb-10 w-full flex justify-between max-md:hidden">
         <img src={'assets/site icon.png'} alt="Site Logo" className="object-contain bg-slate-200 rounded-full h-1/2 w-full" />
       </div>
 
+      {/* loop over the Sidebar Items.... */}
       <ul className="md:block py-9 flex flex-row justify-between w-full transition-all duration-700">
         {menuItems.map((item) => (
           <li
@@ -34,7 +38,7 @@ const Sidebar = () => {
             className={`${currentPage === item.link
               ? "bg-white text-dark-blue border-2 border-dark-blue rounded-full w-32"
               : "text-white hover:text-slate-200 w-16"
-            } h-16 flex flex-row items-center justify-center rounded-full transition-all duration-500 cursor-pointer shadow-md shadow-slate-300 mb-4`}
+              } h-16 flex flex-row items-center justify-center rounded-full transition-all duration-500 cursor-pointer shadow-md shadow-slate-300 mb-4`}
           >
             <FontAwesomeIcon icon={item.icon} />
             <span className={`${currentPage === item.link ? "ml-2 block" : "hidden"}`}>
@@ -43,18 +47,22 @@ const Sidebar = () => {
           </li>
         ))}
       </ul>
-
+      {/* admin details image and email...(need to change not necessary ) */}
       <div id="admin_img" className="flex flex-row mt-10">
+
         <img
           className="rounded-full w-12 h-12 object-cover mr-4"
           src={("assets/photo-1438761681033-6461ffad8d80.avif")}
           alt="img"
         />
+
         <div id="name_and_email">
           <h4>{localStorage.getItem("Name")}</h4>
           <h5 className="text-slate-400">{localStorage.getItem("Email")}</h5>
         </div>
       </div>
+
+
     </div>
   );
 };

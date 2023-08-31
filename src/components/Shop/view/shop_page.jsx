@@ -2,7 +2,6 @@ import React, { useState, useMemo, useEffect } from 'react';
 import axios from 'axios';
 
 import ProductCard from '../widgets/product_card';
-import { categories } from '../model/ShopPageModel';
 import Loader from '../../../loader';
 
 const ShopPage = () => {
@@ -11,6 +10,20 @@ const ShopPage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [categories, setcategories] = useState([]);
+  // ! to fitch available categories from Api
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/category/all_categories');
+      const data = await response.json();
+      console.warn(data.allCategories)
+
+      setcategories(data.allCategories);
+
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -26,6 +39,12 @@ const ShopPage = () => {
 
     fetchProducts();
   }, []);
+  useEffect(() => {
+    fetchCategories()
+
+
+
+  }, [])
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -64,20 +83,25 @@ const ShopPage = () => {
 
   return (
     <div className=" grid grid-cols-1 md:grid-cols-5 gap-4 w-full ">
+      {/* Select category */}
+
       <div className='col-span-5 md:col-span-1 col-start-1 row-span-2 p-5 rounded-md shadow-gray-400 drop-shadow-md shadow-sm'>
         <h1 className="text-xl font-light text-dark-blue mb-4 font-serif">Categories</h1>
         <div className="grid grid-rows-3 pt-3 pb-3 gap-4 md:gap-14">
-          {categories.map((category, index) => (
-            <div
-              key={index}
-              className={`bg-slate-200 hover:bg-slate-300 text-center rounded-xl p-1 ${selectedCategory === category.category ? 'bg-slate-300' : ''}`}
-              onClick={() => handleCategorySelect(category.category)}
-            >
-              <div className="text-dark-blue cursor-pointer text-lg">{category.category}</div>
-            </div>
-          ))}
+          <select id="category" value={selectedCategory} >
+            <option value="">Select a category</option>
+            {categories.map((category) => (
+              <option key={category._id} value={category._id}>
+                {category.product_Category}
+              </option>
+            ))
+
+            }
+
+          </select>
         </div>
       </div>
+      {/* select category end ... */}
 
       <div className="min-h-screen col-span-5 sm:col-span-4 p-4 gap-4 grid grid-cols-1 md:grid-cols-3 grid-rows-2 ">
         {loading ? (
