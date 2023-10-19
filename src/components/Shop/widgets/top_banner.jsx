@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaTelegram } from 'react-icons/fa';
 
 const TopBanner = () => {

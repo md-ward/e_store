@@ -9,6 +9,7 @@ const ProductCard = ({ product }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { addToCart } = useCartStore();
 
+  console.log(product)
 
   const buttons = [
     { id: 'view', icon: faEye, text: 'View' },

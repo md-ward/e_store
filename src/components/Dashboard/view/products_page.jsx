@@ -5,23 +5,50 @@ import { useSnackbar } from '../store/showSnackBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd, faBox } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import useProductStore from '../store/useProductStore';
 
 function AddProductPage() {
 
-    const [productName, setProductName] = useState('');
-    const [productDescription, setProductDescription] = useState('');
-    const [productPrice, setProductPrice] = useState('');
-    const [productImage, setProductImage] = useState([]);
-    const [productCategory, setProductCategory] = useState('');
-    const [showImageDialog, setShowImageDialog] = useState(false);
-    const [newCategory, setnewCategory] = useState(true);
+    // const [productName, setProductName] = useState('');
+    // const [productDescription, setProductDescription] = useState('');
+    // const [productPrice, setProductPrice] = useState('');
+    // const [productImage, setProductImage] = useState([]);
+    // const [productCategory, setProductCategory] = useState('');
+    // const [showImageDialog, setShowImageDialog] = useState(false);
+    // const [newCategory, setnewCategory] = useState(true);
+    // const [categories, setCategories] = useState([]);
+    // const [selectedCategory, setSelectedCategory] = useState('');
+    
+    const {
+        productName,
+        setProductName,
+        productDescription,
+        setProductDescription,
+        productPrice,
+        setProductPrice,
+        productImage,
+        setProductImage,
+        productCategory,
 
+        setProductCategory,
+        showImageDialog,
+        setShowImageDialog,
+        newCategory,
+        setNewCategory,
+        categories,
+        setCategories,
+        selectedCategory,
+        setSelectedCategory,
+      } = useProductStore();
+      
+
+    
     // !global widget..........
+
     const showSnackBar = useSnackbar(state => state.showSnackbar);
     const hideSnackBar = useSnackbar(state => state.hideSnackbar);
 
-    const [categories, setCategories] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState('');
+
 
     useEffect(() => {
         // Fetch categories from API
@@ -73,7 +100,7 @@ function AddProductPage() {
         setSelectedCategory(selectedValue);
 
         if (selectedValue === 'new') {
-            setnewCategory(false);
+            setNewCategory(false);
             setProductCategory('');
         }
     }
@@ -202,7 +229,7 @@ function AddProductPage() {
                                 {category.product_Category}
                             </option>
                         ))
-                        
+
                         }
                         <option value="new">new category </option>
 

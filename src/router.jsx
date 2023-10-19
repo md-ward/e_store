@@ -6,32 +6,31 @@ import { Routes, Route, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import ShopPage from './components/Shop/view/shop_page';
-import LogInPage from './components/Login_and_signup/view/loginPage';
 import CartPage from './components/Shop/view/CartPage';
 import ContactUs from './components/Shop/view/contact_us';
 import AboutUs from './components/Shop/view/about_us';
 import CheckoutPage from './components/Shop/view/check_out'
 import OurLocations from './components/Shop/view/our_locations';
+import Register from './components/registering_component/view/registering_page';
+
 
 const AppRouter = () => {
   return (
-    <>
-      <Routes>
-        <Route path='/register' element={<LogInPage />}></Route>
-        <Route path="/" element={<Home />} />
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/shop" element={<ShopPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/contacts" element={<ContactUs />} />
-        <Route path='/locations' element={<OurLocations />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/checkOut" element={< CheckoutPage />} />
+    <Routes >
+      <Route path='/register' element={<Register />}></Route>
+      <Route path="/" element={<Home />} />
+      <Route path="/admin" element={<Dashboard />} />
+      <Route path="/shop" element={<ShopPage />} />
+      <Route path="/cart" element={<CartPage />} />
+      <Route path="/contacts" element={<ContactUs />} />
+      <Route path='/locations' element={<OurLocations />} />
+      <Route path="/about" element={<AboutUs />} />
+      <Route path="/checkOut" element={< CheckoutPage />} />
 
 
-        <Route path="/*" element={<NoMatch />} />
+      <Route path="/*" element={<NoMatch />} />
 
-      </Routes>
-    </>
+    </Routes>
   );
 
 }

@@ -3,6 +3,8 @@ export const content = ["./src/**/*.{html,js,jsx}"];
 export const mode = 'jit';
 export const theme = {
   extend: {
+  
+
     colors: {
       'dark-blue': '#2A2F4F',
       'dark-blue-2': '#917FB3',

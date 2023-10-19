@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { FaEye, FaShoppingCart, FaComments } from "react-icons/fa";
 import ViewContactusMessages from "../widgets/view_contactus_messages";
